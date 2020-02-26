@@ -13,15 +13,16 @@ def plot_state_action_values(env, value):
     """
     fig = plt.figure()
     for a in range(env.n_actions): 
-        plt.plot(range(env.n_states), value[:,a], marker='o', linestyle='--')
-    plt.xlabel('States')
-    plt.ylabel('Value')
+        ax = plt.plot(range(env.n_states), value[:,a],
+                      marker='o', linestyle='--')
+    ax.xlabel('States')
+    ax.ylabel('Value')
     if env.name == 'n_armed_bandit':
-        plt.legend(['0','1','2','3'], loc='lower right')
+        ax.legend(['0','1','2','3'], loc='lower right')
     elif env.name == 'cheese_world':
-        plt.legend(['L','R'], loc='lower right')
+        ax.legend(['L','R'], loc='lower right')
     else:
-        plt.legend(['R','U','L','D'], loc='lower right')
+        ax.legend(['R','U','L','D'], loc='lower right')
     return fig
 
 
@@ -105,11 +106,11 @@ def plot_rewards(n_episodes, rewards, average_range=10):
     smoothed_rewards = (conv(rewards, np.ones(average_range), mode='same')
                         / average_range)
     fig = plt.figure()
-    plt.plot(range(0, n_episodes, average_range),
-             smoothed_rewards[0:n_episodes:average_range],
-             marker='o', linestyle='--')
-    plt.xlabel('Episodes')
-    plt.ylabel('Total reward')
+    ax = plt.plot(range(0, n_episodes, average_range),
+                  smoothed_rewards[0:n_episodes:average_range],
+                  marker='o', linestyle='--')
+    ax.xlabel('Episodes')
+    ax.ylabel('Total reward')
     return fig
 
 
