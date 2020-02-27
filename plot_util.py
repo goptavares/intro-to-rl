@@ -12,9 +12,10 @@ def plot_state_action_values(env, value):
     Generate plot showing value of each action at each state.
     """
     fig = plt.figure()
+    ax = fig.add_subplot(111)
     for a in range(env.n_actions): 
-        ax = plt.plot(range(env.n_states), value[:,a],
-                      marker='o', linestyle='--')
+        ax.plot(range(env.n_states), value[:,a],
+                marker='o', linestyle='--')
     ax.set_xlabel('States')
     ax.set_ylabel('Value')
     if env.name == 'n_armed_bandit':
@@ -106,9 +107,10 @@ def plot_rewards(n_episodes, rewards, average_range=10):
     smoothed_rewards = (conv(rewards, np.ones(average_range), mode='same')
                         / average_range)
     fig = plt.figure()
-    ax = plt.plot(range(0, n_episodes, average_range),
-                  smoothed_rewards[0:n_episodes:average_range],
-                  marker='o', linestyle='--')
+    ax = fig.add_subplot(111)
+    ax.plot(range(0, n_episodes, average_range),
+            smoothed_rewards[0:n_episodes:average_range],
+            marker='o', linestyle='--')
     ax.set_xlabel('Episodes')
     ax.set_ylabel('Total reward')
     return fig
