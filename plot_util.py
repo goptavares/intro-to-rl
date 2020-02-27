@@ -12,16 +12,18 @@ def plot_state_action_values(env, value):
     Generate plot showing value of each action at each state.
     """
     fig = plt.figure()
+    ax = fig.add_subplot(111)
     for a in range(env.n_actions): 
-        plt.plot(range(env.n_states), value[:,a], marker='o', linestyle='--')
-    plt.xlabel('States')
-    plt.ylabel('Value')
+        ax.plot(range(env.n_states), value[:,a],
+                marker='o', linestyle='--')
+    ax.set_xlabel('States')
+    ax.set_ylabel('Value')
     if env.name == 'n_armed_bandit':
-        plt.legend(['0','1','2','3'], loc='lower right')
+        ax.legend(['0','1','2','3'], loc='lower right')
     elif env.name == 'cheese_world':
-        plt.legend(['L','R'], loc='lower right')
+        ax.legend(['L','R'], loc='lower right')
     else:
-        plt.legend(['R','U','L','D'], loc='lower right')
+        ax.legend(['R','U','L','D'], loc='lower right')
     return fig
 
 
@@ -49,9 +51,9 @@ def plot_quiver_max_action(env, action_matrix):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.quiver(X, Y, U, V)
-    plt.xlim([-0.5, env.dim_x+0.5])
-    plt.ylim([-0.5, env.dim_y+0.5])
-    plt.title('Maximum value/probability actions')
+    ax.set_xlim([-0.5, env.dim_x+0.5])
+    ax.set_ylim([-0.5, env.dim_y+0.5])
+    ax.set_title('Maximum value/probability actions')
     ax.set_xticks(np.linspace(0.5, env.dim_x-0.5, num=env.dim_x))
     ax.set_xticklabels(["%d" % x for x in np.arange(env.dim_x)])
     ax.set_xticks(np.arange(env.dim_x+1), minor=True)
@@ -82,8 +84,8 @@ def plot_heatmap_max_val(env, value):
     if env.name != 'windy_cliff_grid':
         value_max = value_max[::-1,:]
     fig = plt.figure()
-    plt.title('Maximum value per state')
     ax = fig.add_subplot(111)
+    ax.set_title('Maximum value per state')
     im = ax.imshow(value_max, interpolation='none', cmap='afmhot')
     ax.set_xticks(np.linspace(0, env.dim_x-1, num=env.dim_x))
     ax.set_xticklabels(["%d" % x for x in np.arange(env.dim_x)])
@@ -105,11 +107,12 @@ def plot_rewards(n_episodes, rewards, average_range=10):
     smoothed_rewards = (conv(rewards, np.ones(average_range), mode='same')
                         / average_range)
     fig = plt.figure()
-    plt.plot(range(0, n_episodes, average_range),
-             smoothed_rewards[0:n_episodes:average_range],
-             marker='o', linestyle='--')
-    plt.xlabel('Episodes')
-    plt.ylabel('Total reward')
+    ax = fig.add_subplot(111)
+    ax.plot(range(0, n_episodes, average_range),
+            smoothed_rewards[0:n_episodes:average_range],
+            marker='o', linestyle='--')
+    ax.set_xlabel('Episodes')
+    ax.set_ylabel('Total reward')
     return fig
 
 
