@@ -51,9 +51,9 @@ def plot_quiver_max_action(env, action_matrix):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.quiver(X, Y, U, V)
-    plt.xlim([-0.5, env.dim_x+0.5])
-    plt.ylim([-0.5, env.dim_y+0.5])
-    plt.title('Maximum value/probability actions')
+    ax.set_xlim([-0.5, env.dim_x+0.5])
+    ax.set_ylim([-0.5, env.dim_y+0.5])
+    ax.set_title('Maximum value/probability actions')
     ax.set_xticks(np.linspace(0.5, env.dim_x-0.5, num=env.dim_x))
     ax.set_xticklabels(["%d" % x for x in np.arange(env.dim_x)])
     ax.set_xticks(np.arange(env.dim_x+1), minor=True)
@@ -84,8 +84,8 @@ def plot_heatmap_max_val(env, value):
     if env.name != 'windy_cliff_grid':
         value_max = value_max[::-1,:]
     fig = plt.figure()
-    plt.title('Maximum value per state')
     ax = fig.add_subplot(111)
+    ax.set_title('Maximum value per state')
     im = ax.imshow(value_max, interpolation='none', cmap='afmhot')
     ax.set_xticks(np.linspace(0, env.dim_x-1, num=env.dim_x))
     ax.set_xticklabels(["%d" % x for x in np.arange(env.dim_x)])
